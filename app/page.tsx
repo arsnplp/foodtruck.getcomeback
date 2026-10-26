@@ -160,24 +160,24 @@ export default function LandingFoodTruck() {
   return (
     <>
       <header>
-        <Container className="flex h-14 items-center">
+        <Container wide className="flex h-14 items-center">
           <Logo />
         </Container>
       </header>
 
       <main>
         {/* ===== Hero ===== */}
-        <section className="overflow-hidden pb-14 lg:pb-20">
-          <Container className="grid items-center gap-10 pt-3 sm:pt-8 lg:grid-cols-[1fr_1.05fr] lg:gap-6 lg:pt-10">
+        <section className="overflow-hidden pb-14 lg:flex lg:min-h-[calc(100svh-3.5rem)] lg:items-center lg:pb-16">
+          <Container wide className="grid items-center gap-10 pt-3 sm:pt-8 lg:grid-cols-[1.2fr_1fr] lg:gap-10 lg:pt-4 xl:gap-16">
             <div>
-              <h1 className="font-display text-[2.15rem] font-extrabold leading-[1.02] tracking-[-0.03em] text-ink sm:text-6xl lg:text-[4.1rem]">
+              <h1 className="font-display text-[2.15rem] font-extrabold leading-[1.02] tracking-[-0.03em] text-ink sm:text-[3.4rem] lg:text-[3.5rem] xl:text-[4.1rem] 2xl:text-[4.5rem]">
                 {HERO_TITLE}
               </h1>
-              <p className="mt-4 max-w-lg text-[1.05rem] leading-relaxed text-ink-soft sm:text-xl">{HERO_SUBTITLE}</p>
+              <p className="mt-4 max-w-xl text-[1.05rem] leading-relaxed text-ink-soft sm:text-xl lg:mt-6">{HERO_SUBTITLE}</p>
 
-              <ProofStub className="mt-5 max-w-md" />
+              <ProofStub className="mt-5 max-w-lg lg:mt-7" />
 
-              <div id="hero-cta" className="mt-5 flex flex-col items-stretch gap-2 sm:items-start">
+              <div id="hero-cta" className="mt-6 flex lg:mt-8 flex-col items-stretch gap-2 sm:items-start">
                 <LpCTA position="lp-ft-hero" className="w-full sm:w-auto" />
                 <Reassurance className="text-center sm:text-left" />
               </div>
@@ -185,7 +185,7 @@ export default function LandingFoodTruck() {
 
             {/* Visuel : le camion et sa carte, posés sur un grand aplat moutarde */}
             <div className="relative" data-parallax="-0.06">
-              <div className="lp-panel absolute inset-x-[-1rem] bottom-0 top-[14%] rounded-[2.5rem] bg-gold-400 sm:inset-x-0 lg:-right-24 lg:left-6" aria-hidden="true" />
+              <div className="lp-panel absolute inset-x-[-1rem] bottom-0 top-[14%] rounded-[2.5rem] bg-gold-400 sm:inset-x-0 lg:-right-4 lg:left-4" aria-hidden="true" />
               <Image
                 src="/foodtruck-hero.webp"
                 alt="Un food truck et, à côté, un téléphone qui affiche sa carte de fidélité avec un QR code et des tampons"
@@ -193,7 +193,7 @@ export default function LandingFoodTruck() {
                 height={572}
                 priority
                 sizes="(min-width: 1024px) 600px, 100vw"
-                className="lp-hero-img relative mx-auto h-auto w-full max-w-[620px] pb-4"
+                className="lp-hero-img relative mx-auto h-auto w-full max-w-[620px] pb-4 lg:max-w-none"
               />
             </div>
           </Container>
