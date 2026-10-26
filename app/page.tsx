@@ -5,6 +5,8 @@ import { Icon, type IconName } from "@/components/ui/Icon";
 import { LpCTA } from "@/components/lp/LpCTA";
 import { StickyCTA } from "@/components/lp/StickyCTA";
 import { ProofSlot } from "@/components/lp/ProofSlot";
+import { ScrollFx } from "@/components/lp/ScrollFx";
+import { CountUp } from "@/components/lp/CountUp";
 import { CTA_REASSURANCE } from "@/lib/links";
 import { plans, formatPlanPrice, TRIAL_DAYS } from "@/content/pricing";
 
@@ -107,10 +109,10 @@ function Reassurance({ dark = false, className = "" }: { dark?: boolean; classNa
 function ProofStub({ className = "" }: { className?: string }) {
   return (
     <figure
-      className={`relative flex items-center gap-4 rounded-2xl border-2 border-dashed border-leaf-300 bg-white px-4 py-3 sm:px-5 ${className}`}
+      className={`lp-stamp relative flex items-center gap-4 rounded-2xl border-2 border-dashed border-leaf-300 bg-white px-4 py-3 sm:px-5 ${className}`}
     >
       <span className="shrink-0 whitespace-nowrap font-display text-[2.1rem] font-extrabold leading-none tracking-tight text-ember-700 sm:text-[2.6rem]">
-        {PROOF.figure}
+        <CountUp to={18} prefix="+" suffix={"\u00a0%"} />
       </span>
       <figcaption className="leading-tight">
         <span className="block font-semibold text-ink">{PROOF.label}</span>
@@ -169,8 +171,8 @@ export default function LandingFoodTruck() {
             </div>
 
             {/* Visuel : le camion et sa carte, posés sur un grand aplat moutarde */}
-            <div className="relative">
-              <div className="absolute inset-x-[-1rem] bottom-0 top-[14%] rounded-[2.5rem] bg-gold-400 sm:inset-x-0 lg:-right-24 lg:left-6" aria-hidden="true" />
+            <div className="relative" data-parallax="-0.06">
+              <div className="lp-panel absolute inset-x-[-1rem] bottom-0 top-[14%] rounded-[2.5rem] bg-gold-400 sm:inset-x-0 lg:-right-24 lg:left-6" aria-hidden="true" />
               <Image
                 src="/foodtruck-hero.webp"
                 alt="Un food truck et, à côté, un téléphone qui affiche sa carte de fidélité avec un QR code et des tampons"
@@ -178,7 +180,7 @@ export default function LandingFoodTruck() {
                 height={572}
                 priority
                 sizes="(min-width: 1024px) 600px, 100vw"
-                className="relative mx-auto h-auto w-full max-w-[620px] pb-4"
+                className="lp-hero-img relative mx-auto h-auto w-full max-w-[620px] pb-4"
               />
             </div>
           </Container>
@@ -187,13 +189,14 @@ export default function LandingFoodTruck() {
         {/* ===== 3 étapes ===== */}
         <section className="border-y border-ink/10 bg-white py-16 sm:py-20" aria-labelledby="etapes">
           <Container>
-            <h2 id="etapes" className="max-w-xl font-display text-3xl font-bold tracking-tight sm:text-[2.6rem] sm:leading-tight">
+            <h2 id="etapes" data-reveal className="max-w-xl font-display text-3xl font-bold tracking-tight sm:text-[2.6rem] sm:leading-tight">
               Prêt avant votre prochain service
             </h2>
-            <ol className="mt-10 grid gap-8 sm:grid-cols-3 sm:gap-6">
+            <div data-reveal="line" className="mt-10 hidden h-1 rounded-full bg-gold-400 sm:block" aria-hidden="true" />
+            <ol className="mt-6 grid gap-8 sm:grid-cols-3 sm:gap-6">
               {steps.map((s, i) => (
-                <li key={s.title} className="relative sm:pr-6">
-                  <span className="font-display text-6xl font-extrabold leading-none text-gold-500" aria-hidden="true">
+                <li key={s.title} data-reveal style={{ ["--d" as string]: `${i * 180}ms` }} className="relative sm:pr-6">
+                  <span data-reveal="stamp" style={{ ["--d" as string]: `${i * 180 + 150}ms` }} className="inline-block font-display text-6xl font-extrabold leading-none text-gold-500" aria-hidden="true">
                     {i + 1}
                   </span>
                   <h3 className="mt-3 font-display text-xl font-bold">{s.title}</h3>
@@ -211,7 +214,7 @@ export default function LandingFoodTruck() {
         {/* ===== Les moments où ça rapporte ===== */}
         <section className="dot-grid-dark bg-leaf-950 py-16 text-white sm:py-24" aria-labelledby="moments">
           <Container>
-            <h2 id="moments" className="max-w-2xl font-display text-3xl font-bold tracking-tight sm:text-[2.6rem] sm:leading-tight">
+            <h2 id="moments" data-reveal className="max-w-2xl font-display text-3xl font-bold tracking-tight sm:text-[2.6rem] sm:leading-tight">
               Un message sur leur écran verrouillé, et ils reviennent
             </h2>
             <p className="mt-4 max-w-2xl text-lg text-leaf-100">
@@ -219,10 +222,12 @@ export default function LandingFoodTruck() {
             </p>
 
             <div className="mt-12 grid gap-x-12 gap-y-12 md:grid-cols-2">
-              {moments.map((m) => (
+              {moments.map((m, i) => (
                 <article key={m.when} className="grid gap-4">
-                  <Notification text={m.notif} />
-                  <div>
+                  <div data-reveal="notif" style={{ ["--d" as string]: `${(i % 2) * 140}ms` }}>
+                    <Notification text={m.notif} />
+                  </div>
+                  <div data-reveal style={{ ["--d" as string]: `${(i % 2) * 140 + 200}ms` }}>
                     <p className="text-sm font-semibold text-gold-400">{m.when}</p>
                     <h3 className="mt-1 font-display text-xl font-bold">{m.title}</h3>
                     <p className="mt-1.5 text-leaf-100">{m.text}</p>
@@ -241,7 +246,7 @@ export default function LandingFoodTruck() {
         <section className="py-16 sm:py-24" aria-labelledby="prix">
           <Container className="grid items-center gap-12 lg:grid-cols-2">
             <div>
-              <h2 id="prix" className="font-display text-3xl font-bold tracking-tight sm:text-[2.6rem] sm:leading-tight">
+              <h2 id="prix" data-reveal className="font-display text-3xl font-bold tracking-tight sm:text-[2.6rem] sm:leading-tight">
                 Le prix d&apos;un menu par mois
               </h2>
               <p className="mt-4 max-w-md text-lg text-ink-soft">
@@ -258,7 +263,7 @@ export default function LandingFoodTruck() {
               </p>
             </div>
 
-            <div className="mx-auto w-full max-w-sm -rotate-1">
+            <div data-reveal="receipt" className="mx-auto w-full max-w-sm -rotate-1">
               <div className="receipt bg-white px-6 pb-8 pt-7 shadow-card-lg">
                 <p className="text-center font-display text-lg font-bold">Comeback</p>
                 <p className="text-center text-sm text-ink-soft">Votre ticket</p>
@@ -294,7 +299,7 @@ export default function LandingFoodTruck() {
             <h2 id="fondateur" className="sr-only">
               Qui vous accompagne
             </h2>
-            <figure>
+            <figure data-reveal>
               <blockquote className="font-display text-2xl font-semibold leading-snug text-ink sm:text-[2rem]">
                 «&nbsp;Chaque food truck qui démarre, je l&apos;installe moi-même au téléphone. Si vous avez une question,
                 c&apos;est moi qui réponds.&nbsp;»
@@ -348,7 +353,7 @@ export default function LandingFoodTruck() {
         {/* ===== CTA final ===== */}
         <section id="cta-final" className="dot-grid-dark bg-leaf-950 py-16 text-white sm:py-24" aria-labelledby="final">
           <Container className="max-w-3xl text-center">
-            <h2 id="final" className="font-display text-4xl font-extrabold leading-[1.05] tracking-tight text-white sm:text-6xl">
+            <h2 id="final" data-reveal className="font-display text-4xl font-extrabold leading-[1.05] tracking-tight text-white sm:text-6xl">
               {FINAL_TITLE}
             </h2>
             <p className="mt-5 text-lg text-leaf-100">
@@ -375,6 +380,7 @@ export default function LandingFoodTruck() {
       </footer>
 
       <StickyCTA />
+      <ScrollFx />
     </>
   );
 }
