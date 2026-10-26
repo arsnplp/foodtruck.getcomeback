@@ -11,9 +11,9 @@ import { plans, formatPlanPrice, TRIAL_DAYS } from "@/content/pricing";
 /* ============================================================
    Textes à caler sur la pub (message match) : modifier ici.
    ============================================================ */
-const HERO_TITLE = "Prévenez tous vos clients de votre emplacement du jour.";
+const HERO_TITLE = "Vos clients reviennent plus souvent à votre camion.";
 const HERO_SUBTITLE =
-  "Votre carte de fidélité dans leur téléphone. En un clic, ils reçoivent votre emplacement et votre menu du jour sur leur écran verrouillé.";
+  "Votre carte de fidélité dans leur téléphone. En un clic, ils reçoivent votre plat du jour et vos offres sur leur écran verrouillé.";
 const FINAL_TITLE = "Votre prochain service peut déjà être plein.";
 
 const proPlan = plans.find((p) => p.name === "Pro") ?? plans[0];
@@ -29,15 +29,15 @@ const steps: { icon: IconName; title: string; text: string }[] = [
   {
     icon: "send",
     title: "Vous les prévenez en un clic",
-    text: "Emplacement du jour, menu, offre : ils reçoivent tout sur leur écran verrouillé.",
+    text: "Plat du jour, nouveauté, offre : ils reçoivent tout sur leur écran verrouillé.",
   },
 ];
 
 const moments: { icon: IconName; title: string; text: string }[] = [
   {
-    icon: "mapPin",
-    title: "Vous changez d'emplacement",
-    text: "Mardi au marché, jeudi devant la zone d'activité. Vos clients savent où vous trouver, sans chercher sur Instagram.",
+    icon: "megaphone",
+    title: "Vous sortez un nouveau plat",
+    text: "Burger de la semaine, dessert maison : vos clients l'apprennent dans la minute, pas au hasard d'un post Instagram.",
   },
   {
     icon: "calendar",

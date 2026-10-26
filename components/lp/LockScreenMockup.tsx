@@ -4,7 +4,7 @@
  */
 
 export const DEMO_TRUCK = "Le Camion Gourmand";
-export const DEMO_NOTIFICATION = "Aujourd'hui 11 h 30, place du Marché. Menu du jour : burger maison.";
+export const DEMO_NOTIFICATION = "Ce midi : burger maison. Plus que 3 passages avant votre menu offert !";
 
 function TruckGlyph({ className = "h-4 w-4" }: { className?: string }) {
   return (

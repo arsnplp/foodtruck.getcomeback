@@ -21,7 +21,7 @@ const figtree = localFont({
 const URL_LP = "https://foodtruck.getcomeback.fr";
 const TITLE = "Carte de fidélité pour food truck | Comeback";
 const DESCRIPTION =
-  "Prévenez tous vos clients de votre emplacement du jour, sur leur écran verrouillé. 30 jours gratuits, 0 € aujourd'hui.";
+  "Faites revenir vos clients plus souvent : votre plat du jour et vos offres sur leur écran verrouillé. 30 jours gratuits, 0 € aujourd'hui.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(URL_LP),
