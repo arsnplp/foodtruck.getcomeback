@@ -93,7 +93,7 @@ const faq = [
 ];
 
 /* Support : uniquement des engagements réels (installation offerte par
-   Arsène, support dédié « réponse sous 4 h » du plan Business de l'essai). */
+   Arsène, réponse dans la journée par un humain). */
 const support: { figure: string; title: string; text: string }[] = [
   {
     figure: "10 min",
@@ -101,14 +101,14 @@ const support: { figure: string; title: string; text: string }[] = [
     text: "Juste après votre inscription, on vous appelle et on règle tout ensemble au téléphone.",
   },
   {
-    figure: "4 h",
-    title: "Pour vous répondre, au maximum",
-    text: "Une question pendant l'essai ? Vous avez une réponse dans la demi-journée.",
+    figure: "1 jour",
+    title: "Pour vous répondre, au plus tard",
+    text: "Une question ? On vous répond dans la journée. Un vrai humain, pas une IA.",
   },
   {
     figure: "1",
     title: "Seul interlocuteur, toujours le même",
-    text: "Pas de centre d'appel ni de robot. C'est le fondateur qui vous répond.",
+    text: "Pas de centre d'appel. C'est le fondateur lui-même qui vous répond.",
   },
 ];
 
