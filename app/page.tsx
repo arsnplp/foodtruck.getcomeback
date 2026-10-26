@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { Logo } from "@/components/ui/Logo";
-import { Icon, type IconName } from "@/components/ui/Icon";
+import { Icon } from "@/components/ui/Icon";
 import { LpCTA } from "@/components/lp/LpCTA";
 import { StickyCTA } from "@/components/lp/StickyCTA";
 import { ProofSlot } from "@/components/lp/ProofSlot";
@@ -92,11 +92,24 @@ const faq = [
   },
 ];
 
-const guarantees: { icon: IconName; text: string }[] = [
-  { icon: "smartphone", text: "Aucune appli à télécharger" },
-  { icon: "card", text: "Apple Wallet et Google Wallet" },
-  { icon: "download", text: "Vos données exportables" },
-  { icon: "leaf", text: "Conçu en France" },
+/* Support : uniquement des engagements réels (installation offerte par
+   Arsène, support dédié « réponse sous 4 h » du plan Business de l'essai). */
+const support: { figure: string; title: string; text: string }[] = [
+  {
+    figure: "10 min",
+    title: "On installe votre carte avec vous",
+    text: "Juste après votre inscription, on vous appelle et on règle tout ensemble au téléphone.",
+  },
+  {
+    figure: "4 h",
+    title: "Pour vous répondre, au maximum",
+    text: "Une question pendant l'essai ? Vous avez une réponse dans la demi-journée.",
+  },
+  {
+    figure: "1",
+    title: "Seul interlocuteur, toujours le même",
+    text: "Pas de centre d'appel ni de robot. C'est le fondateur qui vous répond.",
+  },
 ];
 
 /* ---------- Petits composants de la page ---------- */
@@ -293,35 +306,61 @@ export default function LandingFoodTruck() {
           </Container>
         </section>
 
-        {/* ===== Fondateur ===== */}
-        <section className="bg-cream-2 py-16 sm:py-20" aria-labelledby="fondateur">
-          <Container className="max-w-3xl">
-            <h2 id="fondateur" className="sr-only">
-              Qui vous accompagne
-            </h2>
-            <figure data-reveal>
-              <blockquote className="font-display text-2xl font-semibold leading-snug text-ink sm:text-[2rem]">
-                «&nbsp;Chaque food truck qui démarre, je l&apos;installe moi-même au téléphone. Si vous avez une question,
-                c&apos;est moi qui réponds.&nbsp;»
-              </blockquote>
-              <figcaption className="mt-6 flex items-center gap-3">
-                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-leaf-700 font-display text-lg font-bold text-white" aria-hidden="true">
-                  AL
-                </span>
-                <span>
-                  <span className="block font-semibold text-ink">Arsène Lecoq</span>
-                  <span className="block text-sm text-ink-soft">Fondateur de Comeback</span>
-                </span>
-              </figcaption>
-            </figure>
-            <ul className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
-              {guarantees.map((g) => (
-                <li key={g.text} className="flex flex-col gap-2 text-sm font-medium text-ink">
-                  <Icon name={g.icon} className="h-6 w-6 text-leaf-700" />
-                  {g.text}
-                </li>
+        {/* ===== Support humain ===== */}
+        <section className="bg-cream-2 py-16 sm:py-24" aria-labelledby="support">
+          <Container>
+            <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
+              <div data-reveal>
+                <h2 id="support" className="font-display text-[2.1rem] font-extrabold leading-[1.05] tracking-tight sm:text-5xl">
+                  Une vraie personne vous répond. Vite.
+                </h2>
+                <p className="mt-4 max-w-lg text-lg text-ink-soft">
+                  Vous êtes au camion, pas derrière un ordinateur. Alors on fait le plus gros avec vous, et on reste
+                  joignable quand vous avez besoin.
+                </p>
+              </div>
+
+              {/* Carte « appel d'installation » */}
+              <figure data-reveal style={{ ["--d" as string]: "150ms" }} className="rounded-[1.75rem] bg-leaf-950 p-6 text-white shadow-card-lg sm:p-7">
+                <div className="flex items-center gap-4">
+                  <span className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gold-400 font-display text-xl font-bold text-ink" aria-hidden="true">
+                    AL
+                    <span className="absolute -bottom-0.5 -right-0.5 h-4 w-4 rounded-full border-[3px] border-leaf-950 bg-leaf-400" />
+                  </span>
+                  <figcaption>
+                    <span className="block font-display text-lg font-bold">Arsène Lecoq</span>
+                    <span className="block text-sm text-leaf-100">Fondateur de Comeback</span>
+                  </figcaption>
+                </div>
+                <blockquote className="mt-5 text-lg leading-relaxed text-white">
+                  «&nbsp;Chaque food truck qui démarre, je l&apos;installe moi-même au téléphone. Si vous avez une question,
+                  c&apos;est moi qui réponds.&nbsp;»
+                </blockquote>
+                <p className="mt-5 inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 text-sm font-medium text-leaf-100">
+                  <Icon name="phone" className="h-4 w-4 text-gold-400" />
+                  Appel d&apos;installation offert après l&apos;inscription
+                </p>
+              </figure>
+            </div>
+
+            <dl className="mt-14 grid border-t border-ink/15 sm:grid-cols-3">
+              {support.map((item, i) => (
+                <div
+                  key={item.title}
+                  data-reveal
+                  style={{ ["--d" as string]: `${i * 140}ms` }}
+                  className="border-b border-ink/15 py-7 sm:border-b-0 sm:py-8 sm:pr-8 sm:[&:not(:first-child)]:border-l sm:[&:not(:first-child)]:pl-8"
+                >
+                  <dt>
+                    <span className="block font-display text-5xl font-extrabold leading-none tracking-tight text-leaf-700 sm:text-6xl">
+                      {item.figure}
+                    </span>
+                    <span className="mt-3 block font-display text-lg font-bold text-ink">{item.title}</span>
+                  </dt>
+                  <dd className="mt-1.5 text-ink-soft">{item.text}</dd>
+                </div>
               ))}
-            </ul>
+            </dl>
             <ProofSlot />
           </Container>
         </section>
