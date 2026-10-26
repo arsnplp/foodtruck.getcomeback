@@ -261,3 +261,13 @@
     border-radius: 9999px;
   }
 }
+
+/* Ticket de caisse : bord inférieur dentelé (section prix de la landing) */
+.receipt {
+  --tooth: 14px;
+  -webkit-mask:
+    conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / var(--tooth) 100%;
+  mask:
+    conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / var(--tooth) 100%;
+  padding-bottom: calc(2rem + var(--tooth) / 2);
+}
