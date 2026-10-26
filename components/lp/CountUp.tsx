@@ -29,7 +29,12 @@ export function CountUp({ to, prefix = "", suffix = "", duration = 1200 }: { to:
   }, [to, duration]);
 
   return (
-    <span aria-label={`${prefix}${to}${suffix}`}>
+    <span>
+      <span className="sr-only">
+        {prefix}
+        {to}
+        {suffix}
+      </span>
       <span aria-hidden="true">
         {prefix}
         {value}
