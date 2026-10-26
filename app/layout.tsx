@@ -1,0 +1,58 @@
+import type { Metadata, Viewport } from "next";
+import localFont from "next/font/local";
+import { MetaPixel } from "@/components/lp/MetaPixel";
+import "./globals.css";
+
+/* Fontes auto-hébergées, identiques à getcomeback.fr : zéro requête externe */
+const bricolage = localFont({
+  src: "./fonts/bricolage-grotesque-latin.woff2",
+  weight: "200 800",
+  variable: "--font-bricolage",
+  display: "swap",
+});
+
+const figtree = localFont({
+  src: "./fonts/figtree-latin.woff2",
+  weight: "300 900",
+  variable: "--font-figtree",
+  display: "swap",
+});
+
+const URL_LP = "https://foodtruck.getcomeback.fr";
+const TITLE = "Carte de fidélité pour food truck | Comeback";
+const DESCRIPTION =
+  "Prévenez tous vos clients de votre emplacement du jour, sur leur écran verrouillé. 30 jours gratuits, 0 € aujourd'hui.";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(URL_LP),
+  title: TITLE,
+  description: DESCRIPTION,
+  /* Landing réservée aux pubs : ne pas concurrencer getcomeback.fr/carte-fidelite/food-truck */
+  robots: { index: false, follow: false, googleBot: { index: false, follow: false } },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: URL_LP,
+    siteName: "Comeback",
+    locale: "fr_FR",
+    type: "website",
+    images: [{ url: "/opengraph-image.png", width: 1200, height: 630, alt: "Comeback, la carte de fidélité dans le Wallet" }],
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#fafaf8",
+  width: "device-width",
+  initialScale: 1,
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="fr" className={`${bricolage.variable} ${figtree.variable}`}>
+      <body>
+        {children}
+        <MetaPixel />
+      </body>
+    </html>
+  );
+}

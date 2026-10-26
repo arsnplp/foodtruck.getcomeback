@@ -1,0 +1,263 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* ============================================================
+   COMEBACK — Design tokens
+   Direction artistique : « le ticket gagnant »
+   Crème chaleureux + vert croissance + ambre (CTA / chiffres clés)
+   ============================================================ */
+
+@theme {
+  /* --- Fonds --- */
+  --color-cream: #fafaf8; /* fond principal */
+  --color-cream-2: #f1f2ec; /* sections alternées */
+
+  /* --- Encres (texte) --- */
+  --color-ink: #14201a; /* quasi-noir teinté vert */
+  --color-ink-soft: #46534b; /* texte secondaire — AA sur crème */
+  --color-ink-faint: #66736b; /* décoratif / très grands textes uniquement */
+
+  /* --- Vert « leaf » : la croissance, le CA qui monte --- */
+  --color-leaf-50: #eff7f1;
+  --color-leaf-100: #dcefe2;
+  --color-leaf-200: #b9dfc7;
+  --color-leaf-300: #8cc9a4;
+  --color-leaf-400: #4fac77;
+  --color-leaf-500: #199254;
+  --color-leaf-600: #0f7c44;
+  --color-leaf-700: #0b6236; /* boutons pleins, liens */
+  --color-leaf-800: #0a4e2c;
+  --color-leaf-900: #083d23;
+  --color-leaf-950: #042716; /* footer, section CTA finale */
+
+  /* --- Or « gold » : CTA chaleureux (texte encre dessus) --- */
+  --color-gold-100: #fff3d6;
+  --color-gold-200: #ffe7ae;
+  --color-gold-300: #ffd87e;
+  --color-gold-400: #ffc44e;
+  --color-gold-500: #ffaf1f; /* fond CTA principal */
+  --color-gold-600: #ee9a05; /* hover CTA */
+  --color-gold-700: #b97505;
+
+  /* --- Braise « ember » : les chiffres clés (AA sur crème) --- */
+  --color-ember-600: #c2410c;
+  --color-ember-700: #9a3412;
+
+  /* --- Typographies (variables next/font injectées dans <html>) --- */
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+
+  /* --- Ombres douces --- */
+  --shadow-card: 0 1px 2px rgb(20 32 26 / 0.06), 0 12px 32px -12px rgb(20 32 26 / 0.14);
+  --shadow-card-lg: 0 2px 4px rgb(20 32 26 / 0.06), 0 24px 56px -16px rgb(20 32 26 / 0.22);
+  --shadow-cta: 0 10px 28px -10px rgb(238 154 5 / 0.55);
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    @apply bg-cream font-sans text-ink antialiased;
+  }
+
+  ::selection {
+    background: var(--color-gold-200);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-leaf-600);
+    outline-offset: 2px;
+  }
+}
+
+/* ============================================================
+   Motion — micro-animations de marque
+   Entrées en cascade, remplissage des CTA (adapté du composant
+   « Interactive Hover Button » de magicui via 21st.dev), marquee.
+   Tout est désactivé si prefers-reduced-motion: reduce.
+   ============================================================ */
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes stamp-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.4) rotate(-14deg);
+  }
+  65% {
+    transform: scale(1.12) rotate(3deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(2deg);
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Flottement doux en boucle (notifications du héros affiliation) */
+  .anim-float {
+    animation: float-soft 5.5s ease-in-out infinite;
+    animation-delay: var(--float-delay, 0ms);
+  }
+
+  /* Entrée en cascade au chargement : --rise-delay pilote le décalage */
+  .anim-rise {
+    animation: rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: var(--rise-delay, 0ms);
+  }
+
+  /* Effet « coup de tampon » (chip du héro) */
+  .anim-stamp {
+    animation: stamp-in 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    animation-delay: var(--rise-delay, 0ms);
+  }
+
+  /* Bandeau défilant (contenu dupliqué 2× dans le DOM) */
+  .anim-marquee {
+    animation: marquee 32s linear infinite;
+  }
+  .anim-marquee:hover {
+    animation-play-state: paused;
+  }
+
+  /* Remplissage circulaire des boutons au survol : une pastille
+     part de la gauche et envahit le fond (couleur --btn-fill) */
+  .btn-anim::before {
+    content: "";
+    position: absolute;
+    left: 1.1em;
+    top: 50%;
+    z-index: -1;
+    height: 1.1em;
+    width: 1.1em;
+    border-radius: 9999px;
+    background: var(--btn-fill, transparent);
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-anim:hover::before,
+  .btn-anim:focus-visible::before {
+    transform: translate(-50%, -50%) scale(16);
+  }
+}
+
+@layer components {
+  /* Surlignage « marqueur » ambre pour les mots clés des titres */
+  .hl-gold {
+    background-image: linear-gradient(
+      180deg,
+      transparent 60%,
+      var(--color-gold-300) 60%,
+      var(--color-gold-300) 90%,
+      transparent 90%
+    );
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    padding-inline: 0.06em;
+  }
+
+  /* Trame de points décorative (motif tampon) */
+  .dot-grid {
+    background-image: radial-gradient(var(--color-leaf-200) 1.2px, transparent 1.2px);
+    background-size: 22px 22px;
+  }
+
+  .dot-grid-dark {
+    background-image: radial-gradient(rgb(255 255 255 / 0.1) 1.2px, transparent 1.2px);
+    background-size: 22px 22px;
+  }
+
+  /* Sliders du calculateur — remplissage piloté par --pct */
+  input[type="range"].range {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+    height: 28px;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .range::-webkit-slider-runnable-track {
+    height: 8px;
+    border-radius: 9999px;
+    background: linear-gradient(
+      to right,
+      var(--color-leaf-600) 0%,
+      var(--color-leaf-600) var(--pct, 50%),
+      var(--color-leaf-100) var(--pct, 50%),
+      var(--color-leaf-100) 100%
+    );
+  }
+
+  .range::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+    margin-top: -10px;
+    height: 28px;
+    width: 28px;
+    border-radius: 9999px;
+    background: #fff;
+    border: 5px solid var(--color-leaf-600);
+    box-shadow: 0 2px 8px rgb(20 32 26 / 0.25);
+  }
+
+  .range::-moz-range-track {
+    height: 8px;
+    border-radius: 9999px;
+    background: var(--color-leaf-100);
+  }
+
+  .range::-moz-range-progress {
+    height: 8px;
+    border-radius: 9999px;
+    background: var(--color-leaf-600);
+  }
+
+  .range::-moz-range-thumb {
+    height: 28px;
+    width: 28px;
+    border-radius: 9999px;
+    background: #fff;
+    border: 5px solid var(--color-leaf-600);
+    box-shadow: 0 2px 8px rgb(20 32 26 / 0.25);
+  }
+
+  .range:focus-visible {
+    outline: 2px solid var(--color-leaf-600);
+    outline-offset: 4px;
+    border-radius: 9999px;
+  }
+}
