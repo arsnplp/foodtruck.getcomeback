@@ -7,7 +7,6 @@ import { StickyCTA } from "@/components/lp/StickyCTA";
 import { ProofSlot } from "@/components/lp/ProofSlot";
 import { ScrollFx } from "@/components/lp/ScrollFx";
 import { CountUp } from "@/components/lp/CountUp";
-import { ProductVideo } from "@/components/lp/ProductVideo";
 import { ConsentSettingsLink } from "@/components/lp/ConsentBanner";
 import { CTA_REASSURANCE } from "@/lib/links";
 import { plans, formatPlanPrice, TRIAL_DAYS } from "@/content/pricing";
@@ -27,10 +26,6 @@ const PROOF = {
   label: "de chiffre d'affaires en 2 mois",
   who: "Alexandre, gérant d'un food truck",
   source: "Chiffres relevés sur sa caisse",
-  /* À remplir avec ses mots exacts, et une photo de son camion sans le nom
-     du commerce (ex. "/alexandre-camion.webp"). Vide = non affiché. */
-  quote: "",
-  photo: "",
 };
 
 const proPlan = plans.find((p) => p.name === "Pro") ?? plans[0];
@@ -130,10 +125,6 @@ function ProofStub({ className = "" }: { className?: string }) {
     <figure
       className={`lp-stamp relative flex items-center gap-4 rounded-2xl border-2 border-dashed border-leaf-300 bg-white px-4 py-3 sm:px-5 ${className}`}
     >
-      {PROOF.photo && (
-        /* eslint-disable-next-line @next/next/no-img-element */
-        <img src={PROOF.photo} alt="Le food truck d'Alexandre" width={56} height={56} className="h-14 w-14 shrink-0 rounded-xl object-cover" />
-      )}
       <span className="shrink-0 whitespace-nowrap font-display text-[2.1rem] font-extrabold leading-none tracking-tight text-ember-700 sm:text-[2.6rem]">
         <CountUp to={18} prefix="+" suffix={"\u00a0%"} />
       </span>
@@ -142,7 +133,6 @@ function ProofStub({ className = "" }: { className?: string }) {
         <span className="block text-sm text-ink-soft">
           {PROOF.who}. {PROOF.source}.
         </span>
-        {PROOF.quote && <q className="mt-1.5 block text-sm italic text-ink">{PROOF.quote}</q>}
       </figcaption>
     </figure>
   );
@@ -232,7 +222,6 @@ export default function LandingFoodTruck() {
                 </li>
               ))}
             </ol>
-            <ProductVideo />
             <div className="mt-12 flex flex-col items-stretch gap-2 sm:items-start">
               <LpCTA position="lp-ft-steps" className="w-full sm:w-auto" />
               <Reassurance className="text-center sm:text-left" />

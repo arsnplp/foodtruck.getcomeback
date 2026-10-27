@@ -50,12 +50,6 @@ NEXT_PUBLIC_PLAUSIBLE_DOMAIN=foodtruck.getcomeback.fr
 Mettre `https://foodtruck.getcomeback.fr/?etape=derniere` comme lien final du
 formulaire : la page affiche « Merci, demande bien reçue ! Dernière étape… ».
 
-## Vidéo produit
-
-Déposer un vrai enregistrement d'écran dans `public/demo.mp4` (+
-`public/demo-poster.jpg`) et passer `DEMO_VIDEO` à `true` dans
-`components/lp/ProductVideo.tsx`. Chargée seulement au clic.
-
 ## Build et déploiement
 
 ```bash
