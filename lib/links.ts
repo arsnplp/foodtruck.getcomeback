@@ -18,4 +18,4 @@ export const CTA_LABEL = "Créer ma carte gratuitement";
 export const CTA_REASSURANCE = "30 jours gratuits · 0 € aujourd'hui · Résiliable en 1 clic";
 
 /** Prix des plans, alignés sur l'app (lib/plan-limits.ts côté app). */
-export const BUSINESS_PRICE_LABEL = "39,99 €";
+export const BUSINESS_PRICE_LABEL = "29,99 €";

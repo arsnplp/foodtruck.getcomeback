@@ -6,7 +6,7 @@
  * commerçant garde Business, bascule sur Pro ou résilie en un clic.
  *
  * Le claim « rentabilisé dès 2 clients fidélisés par mois » se base sur :
- * plan Business 39,99 €/mois ÷ panier moyen ~20 € = 2 visites.
+ * plan Business 29,99 €/mois ÷ panier moyen ~20 € = 1,5 visite.
  */
 export type Plan = {
   name: string;
@@ -33,14 +33,14 @@ export const TRIAL_DAYS = 30;
 export const plans: Plan[] = [
   {
     name: "Pro",
-    price: 9.99,
-    annualMonthly: 8,
-    annualTotal: 96,
+    price: 14.99,
+    annualMonthly: 12,
+    annualTotal: 144,
     period: "/mois TTC",
     audience: "Pour démarrer avec un petit fichier client",
-    description: "Jusqu'à 100 clients inscrits sur votre carte.",
+    description: "Jusqu'à 300 clients inscrits sur votre carte.",
     features: [
-      "100 clients inscrits",
+      "300 clients inscrits",
       "10 000 notifications par mois",
       "3 comptes employés",
       "Relances automatiques des clients inactifs",
@@ -52,9 +52,9 @@ export const plans: Plan[] = [
   },
   {
     name: "Business",
-    price: 39.99,
-    annualMonthly: 32,
-    annualTotal: 384,
+    price: 29.99,
+    annualMonthly: 24,
+    annualTotal: 288,
     period: "/mois TTC",
     audience: "Pour un commerce avec du passage tous les jours",
     description: "Sans limite de clients ni de notifications. Le plan de l'essai.",
