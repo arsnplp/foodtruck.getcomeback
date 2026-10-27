@@ -30,6 +30,11 @@ const PROOF = {
 
 const proPlan = plans.find((p) => p.name === "Pro") ?? plans[0];
 const PRO_PRICE = formatPlanPrice(proPlan.price);
+/* L'essai est sur Business et continue sur Business sans action du
+   commerçant : c'est ce prix-là qu'on affiche en premier, pour qu'il n'y ait
+   aucune surprise au premier prélèvement. */
+const businessPlan = plans.find((p) => p.name === "Business") ?? plans[plans.length - 1];
+const BUSINESS_PRICE = formatPlanPrice(businessPlan.price);
 
 const steps = [
   { title: "On crée votre carte ensemble", text: "Au téléphone, 10 minutes, à vos couleurs." },
@@ -85,7 +90,7 @@ const faq = [
   },
   {
     question: "Pourquoi une carte bancaire pour l'essai ?",
-    answer: `Pour que votre programme continue sans coupure si ça marche. Rien n'est prélevé pendant ${TRIAL_DAYS} jours, et vous pouvez résilier en un clic avant la fin.`,
+    answer: `Pour que votre programme continue sans coupure si ça marche. Rien n'est prélevé pendant ${TRIAL_DAYS} jours. Sans action de votre part, l'abonnement Business continue ensuite à ${BUSINESS_PRICE} € par mois. Vous pouvez passer sur Pro à ${PRO_PRICE} € ou résilier en un clic avant la fin, sans rien payer.`,
   },
   {
     question: "Je peux arrêter quand je veux ?",
@@ -265,11 +270,11 @@ export default function LandingFoodTruck() {
           <Container className="grid items-center gap-12 lg:grid-cols-2">
             <div>
               <h2 id="prix" data-reveal className="font-display text-3xl font-bold tracking-tight sm:text-[2.6rem] sm:leading-tight">
-                Le prix d&apos;un menu par mois
+                Un prix clair, sans surprise
               </h2>
               <p className="mt-4 max-w-md text-lg text-ink-soft">
-                Ailleurs, une carte de fidélité digitale coûte souvent 25 à 40 € par mois. Chez nous, l&apos;installation
-                est faite avec vous, au téléphone.
+                Pas de frais d&apos;installation, pas de matériel à acheter. L&apos;installation est faite avec vous, au
+                téléphone.
               </p>
               <p className="mt-4 max-w-md text-ink-soft">
                 On vous demande une carte bancaire pour que votre programme continue sans coupure si ça marche. Rien
@@ -295,12 +300,15 @@ export default function LandingFoodTruck() {
                   ))}
                 </ul>
                 <div className="mt-5 border-t border-dashed border-ink/25 pt-5">
-                  <p className="text-sm text-ink-soft">Ensuite, à partir de</p>
+                  <p className="text-sm text-ink-soft">Après {TRIAL_DAYS} jours, si vous continuez</p>
                   <p className="font-display text-6xl font-extrabold leading-none tracking-tight text-ink">
-                    {PRO_PRICE}&nbsp;€
+                    {BUSINESS_PRICE}&nbsp;€
                     <span className="ml-1 text-xl font-bold text-ink-soft">/mois</span>
                   </p>
-                  <p className="mt-2 text-sm text-ink-soft">Résiliable en un clic. {proPlan.description}</p>
+                  <p className="mt-2 text-sm text-ink-soft">
+                    Business, clients illimités. Ou Pro à {PRO_PRICE}&nbsp;€/mois, jusqu&apos;à {proPlan.features[0].replace(" inscrits", "")}.
+                    Résiliable en un clic.
+                  </p>
                 </div>
               </div>
             </div>
