@@ -25,11 +25,36 @@ de bouton, aucune navigation sortante hors mentions légales et
 confidentialité. Page en `noindex, nofollow` et `robots.txt` en
 `Disallow: /` (sauf robots Meta, qui vérifient la page des annonces).
 
-## Pixel Meta
+## Mesure (pixel Meta, cookies, audience)
 
-Définir `NEXT_PUBLIC_META_PIXEL_ID` au moment du build (fichier `.env.local`
-sur le serveur), puis rebuild. Sans cette variable, rien n'est chargé.
-`PageView` au chargement, `Lead` au clic sur le CTA.
+Les identifiants se mettent dans `/var/www/foodtruck.getcomeback/.env.local`
+sur le VPS (jamais dans le dépôt), puis on relance le script de déploiement :
+
+```
+NEXT_PUBLIC_META_PIXEL_ID=123456789012345
+# optionnel, mesure d'audience sans cookie :
+NEXT_PUBLIC_PLAUSIBLE_DOMAIN=foodtruck.getcomeback.fr
+```
+
+- Pixel Meta : chargé uniquement après « Accepter » dans la bannière cookies
+  (`components/lp/ConsentBanner.tsx`). `PageView` au chargement, `Lead` au clic
+  sur le CTA. Sans ID, ni pixel ni bannière.
+- Bannière : apparaît après un premier scroll ou 6 s, Refuser = Accepter en
+  visibilité, choix gardé 6 mois, modifiable via « Cookies » en pied de page.
+- La vraie conversion (`StartTrial`) doit être envoyée par l'app après
+  l'inscription, via l'API Conversions. Les paramètres `fbclid` et `utm_*` de
+  la pub sont transmis à `app.getcomeback.fr/signup` pour ça.
+
+## Formulaires instantanés Meta
+
+Mettre `https://foodtruck.getcomeback.fr/?etape=derniere` comme lien final du
+formulaire : la page affiche « Merci, demande bien reçue ! Dernière étape… ».
+
+## Vidéo produit
+
+Déposer un vrai enregistrement d'écran dans `public/demo.mp4` (+
+`public/demo-poster.jpg`) et passer `DEMO_VIDEO` à `true` dans
+`components/lp/ProductVideo.tsx`. Chargée seulement au clic.
 
 ## Build et déploiement
 

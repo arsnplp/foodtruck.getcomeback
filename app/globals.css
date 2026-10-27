@@ -377,3 +377,7 @@
     pointer-events: none;
   }
 }
+
+/* Mode formulaire instantané (?etape=derniere) : bandeau « Dernière étape » */
+.only-form { display: none; }
+[data-etape="derniere"] .only-form { display: block; }

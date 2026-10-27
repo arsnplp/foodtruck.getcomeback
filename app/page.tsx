@@ -7,6 +7,8 @@ import { StickyCTA } from "@/components/lp/StickyCTA";
 import { ProofSlot } from "@/components/lp/ProofSlot";
 import { ScrollFx } from "@/components/lp/ScrollFx";
 import { CountUp } from "@/components/lp/CountUp";
+import { ProductVideo } from "@/components/lp/ProductVideo";
+import { ConsentSettingsLink } from "@/components/lp/ConsentBanner";
 import { CTA_REASSURANCE } from "@/lib/links";
 import { plans, formatPlanPrice, TRIAL_DAYS } from "@/content/pricing";
 
@@ -25,6 +27,10 @@ const PROOF = {
   label: "de chiffre d'affaires en 2 mois",
   who: "Alexandre, gérant d'un food truck",
   source: "Chiffres relevés sur sa caisse",
+  /* À remplir avec ses mots exacts, et une photo de son camion sans le nom
+     du commerce (ex. "/alexandre-camion.webp"). Vide = non affiché. */
+  quote: "",
+  photo: "",
 };
 
 const proPlan = plans.find((p) => p.name === "Pro") ?? plans[0];
@@ -124,6 +130,10 @@ function ProofStub({ className = "" }: { className?: string }) {
     <figure
       className={`lp-stamp relative flex items-center gap-4 rounded-2xl border-2 border-dashed border-leaf-300 bg-white px-4 py-3 sm:px-5 ${className}`}
     >
+      {PROOF.photo && (
+        /* eslint-disable-next-line @next/next/no-img-element */
+        <img src={PROOF.photo} alt="Le food truck d'Alexandre" width={56} height={56} className="h-14 w-14 shrink-0 rounded-xl object-cover" />
+      )}
       <span className="shrink-0 whitespace-nowrap font-display text-[2.1rem] font-extrabold leading-none tracking-tight text-ember-700 sm:text-[2.6rem]">
         <CountUp to={18} prefix="+" suffix={"\u00a0%"} />
       </span>
@@ -132,6 +142,7 @@ function ProofStub({ className = "" }: { className?: string }) {
         <span className="block text-sm text-ink-soft">
           {PROOF.who}. {PROOF.source}.
         </span>
+        {PROOF.quote && <q className="mt-1.5 block text-sm italic text-ink">{PROOF.quote}</q>}
       </figcaption>
     </figure>
   );
@@ -170,6 +181,10 @@ export default function LandingFoodTruck() {
         <section className="overflow-hidden pb-14 lg:flex lg:min-h-[calc(100svh-3.5rem)] lg:items-center lg:pb-16">
           <Container wide className="grid items-center gap-10 pt-3 sm:pt-8 lg:grid-cols-[1.2fr_1fr] lg:gap-10 lg:pt-4 xl:gap-16">
             <div>
+              <p className="only-form mb-4 rounded-2xl bg-leaf-700 px-4 py-3 font-semibold text-white">
+                Merci, demande bien reçue ! Dernière étape : créez votre carte en 2 minutes. On vous appelle ensuite pour
+                l&apos;installer avec vous.
+              </p>
               <h1 className="font-display text-[2.15rem] font-extrabold leading-[1.02] tracking-[-0.03em] text-ink sm:text-[3.4rem] lg:text-[3.5rem] xl:text-[4.1rem] 2xl:text-[4.5rem]">
                 {HERO_TITLE}
               </h1>
@@ -217,6 +232,7 @@ export default function LandingFoodTruck() {
                 </li>
               ))}
             </ol>
+            <ProductVideo />
             <div className="mt-12 flex flex-col items-stretch gap-2 sm:items-start">
               <LpCTA position="lp-ft-steps" className="w-full sm:w-auto" />
               <Reassurance className="text-center sm:text-left" />
@@ -415,6 +431,7 @@ export default function LandingFoodTruck() {
           <a href="https://getcomeback.fr/politique-confidentialite" className="py-2 underline-offset-4 hover:underline">
             Confidentialité
           </a>
+          <ConsentSettingsLink />
         </Container>
       </footer>
 
