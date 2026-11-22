@@ -45,6 +45,15 @@ NEXT_PUBLIC_PLAUSIBLE_DOMAIN=foodtruck.getcomeback.fr
   l'inscription, via l'API Conversions. Les paramètres `fbclid` et `utm_*` de
   la pub sont transmis à `app.getcomeback.fr/signup` pour ça.
 
+## Mesure maison (sans cookie)
+
+En plus du pixel, la page envoie trois évènements à l'app
+(`app.getcomeback.fr/api/track`) : page vue, clic sur le bouton, scroll à
+75 %. Rien n'est stocké chez le visiteur et aucun outil tiers n'est appelé.
+Le lien d'inscription porte aussi `lp=foodtruck`, pour que l'app sache d'où vient
+chaque compte. Les chiffres se lisent dans l'admin de l'app, bloc
+« Acquisition ». Code : `lib/analytics.ts` et `components/lp/Tracker.tsx`.
+
 ## Formulaires instantanés Meta
 
 Mettre `https://foodtruck.getcomeback.fr/?etape=derniere` comme lien final du

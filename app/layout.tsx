@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import Script from "next/script";
 import { MetaPixel } from "@/components/lp/MetaPixel";
+import { Tracker } from "@/components/lp/Tracker";
 import { ConsentBanner } from "@/components/lp/ConsentBanner";
 import "./globals.css";
 
@@ -66,6 +67,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         {children}
+        <Tracker />
         <MetaPixel />
         <ConsentBanner />
       </body>
